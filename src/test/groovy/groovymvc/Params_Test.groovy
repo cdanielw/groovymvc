@@ -9,7 +9,8 @@ import spock.lang.Unroll
 class Params_Test extends Specification {
     @Unroll
     def '"#s" results in #m'(String s, Map m) {
-        expect: Params.parse(s) == m
+        expect:
+        Params.parse(s) == m
         where:
         s                                  | m
         ''                                 | [:]
@@ -51,8 +52,10 @@ class Params_Test extends Specification {
 
     @Unroll
     def 'Throws exception when invalid param string: #s'(String s) {
-        when: Params.parse(s)
-        then: thrown(ParamsException)
+        when:
+        Params.parse(s)
+        then:
+        thrown(ParamsException)
         where:
         s << [
                 'a=foo&a.b.c=bar',
@@ -70,7 +73,8 @@ class Params_Test extends Specification {
 
     @Unroll
     def '#string excluding #excluding results in #expected'(String string, String excluding, Map expected) {
-        expect: Params.parse(string).excluding(excluding) == expected
+        expect:
+        Params.parse(string).excluding(excluding) == expected
         where:
         string                             | excluding | expected
         'a=foo'                            | 'a'       | [:]
@@ -93,7 +97,8 @@ class Params_Test extends Specification {
 
     @Unroll
     def '#string including #including results in #expected'(String string, String including, Map expected) {
-        expect: Params.parse(string).including(including) == expected
+        expect:
+        Params.parse(string).including(including) == expected
         where:
         string                   | including | expected
         'a=foo'                  | 'a'       | [a: 'foo']
@@ -112,7 +117,8 @@ class Params_Test extends Specification {
 
 
     def 'Can parse a map'() {
-        expect: Params.parse([foo: ['bar'] as String[]]) == [foo: 'bar']
+        expect:
+        Params.parse([foo: ['bar'] as String[]]) == [foo: 'bar']
     }
 
 
@@ -121,7 +127,8 @@ class Params_Test extends Specification {
         when:
         def value = new Params(params).optional(path)
 
-        then: value == expectation
+        then:
+        value == expectation
         where:
         params                | path              | expectation
         [foo: 'bar']          | 'nonexisting'     | null
@@ -138,25 +145,34 @@ class Params_Test extends Specification {
     }
 
     def 'If required value is null, ParamsException is thrown'() {
-        when: new Params([:]).required('foo')
-        then: thrown ParamsException
+        when:
+        new Params([:]).required('foo')
+        then:
+        thrown ParamsException
     }
 
     def 'If getting value and value is not of expected type, ParamsException is thrown'() {
-        when: new Params([foo: 'not an int']).optional('foo', int)
-        then: thrown ParamsException
+        when:
+        new Params([foo: 'not an int']).optional('foo', int)
+        then:
+        thrown ParamsException
     }
 
     def 'When unable to coerce to type, ParamsException is thrown'() {
-        when: new Params([foo: 'bar']).required('foo', Author)
-        then: thrown ParamsException
+        when:
+        new Params([foo: 'bar']).required('foo', Author)
+        then:
+        thrown ParamsException
     }
 
     @Unroll
     def 'When expecting type Map and type is #value.class.simpleName, ParamsException is thrown'(value) {
-        when: Params.expectType(value, Map, 'Wrong type')
-        then: thrown ParamsException
-        where: value << [
+        when:
+        Params.expectType(value, Map, 'Wrong type')
+        then:
+        thrown ParamsException
+        where:
+        value << [
                 'Some string', ['Some list']
         ]
     }
@@ -208,7 +224,8 @@ class Params_Test extends Specification {
 
     def 'Can create sub-params based of map'() {
         def params = new Params(a: [b: 'c'])
-        expect: new Params(params.a) == [b: 'c']
+        expect:
+        new Params(params.a) == [b: 'c']
     }
 
 

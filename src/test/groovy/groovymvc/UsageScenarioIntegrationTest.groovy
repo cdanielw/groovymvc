@@ -5,6 +5,7 @@ import groovymvc.template.sitemesh.SiteMeshRenderer
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+
 /**
  * @author Daniel Wiell
  */
@@ -19,15 +20,15 @@ class UsageScenarioIntegrationTest extends Specification {
         when: 'Invalid POST'
         def invalidPostResponse = client.post(path: 'author/123/save',
                 query: [
-                        name: 'Asimov',
-                        dateOfBirth: 'This is not a date',
-                        'books[0].id': '10',
-                        'books[0].title': 'Foundation',
-                        'books[0].year': '1951',
+                        name                : 'Asimov',
+                        dateOfBirth         : 'This is not a date',
+                        'books[0].id'       : '10',
+                        'books[0].title'    : 'Foundation',
+                        'books[0].year'     : '1951',
                         'books[0].author.id': 'strange id',
-                        'books[1].id': '20',
-                        'books[1].title': 'Caves',
-                        'books[1].year': '1954',
+                        'books[1].id'       : '20',
+                        'books[1].title'    : 'Caves',
+                        'books[1].year'     : '1954',
                         'books[1].author.id': '1',
                 ])
         then:
@@ -38,15 +39,15 @@ class UsageScenarioIntegrationTest extends Specification {
         when: 'Valid POST'
         def validPostResponse = client.post(path: 'author/123/save',
                 query: [
-                        name: 'Asimov',
-                        dateOfBirth: '1920-01-02',
-                        'books[0].id': '10',
-                        'books[0].title': 'Foundation',
-                        'books[0].year': '1951',
+                        name                : 'Asimov',
+                        dateOfBirth         : '1920-01-02',
+                        'books[0].id'       : '10',
+                        'books[0].title'    : 'Foundation',
+                        'books[0].year'     : '1951',
                         'books[0].author.id': '1',
-                        'books[1].id': '20',
-                        'books[1].title': 'Caves',
-                        'books[1].year': '1954',
+                        'books[1].id'       : '20',
+                        'books[1].title'    : 'Caves',
+                        'books[1].year'     : '1954',
                         'books[1].author.id': '1',
                 ])
         then:

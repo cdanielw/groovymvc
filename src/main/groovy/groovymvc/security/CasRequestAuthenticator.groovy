@@ -7,7 +7,11 @@ import org.jasig.cas.client.util.AbstractCasFilter
 import org.jasig.cas.client.validation.Assertion
 import org.jasig.cas.client.validation.Cas20ProxyReceivingTicketValidationFilter
 
-import javax.servlet.*
+import javax.servlet.FilterChain
+import javax.servlet.ServletContext
+import javax.servlet.ServletRequest
+import javax.servlet.ServletResponse
+
 /**
  * A {@link RequestAuthenticator} for Jasig CAS.
  *
@@ -42,12 +46,12 @@ class CasRequestAuthenticator implements RequestAuthenticator {
         authenticationFilter = new AuthenticationFilter()
         authenticationFilter.init(new SimpleFilterConfig(servletContext, "authenticationFilter", [
                 casServerLoginUrl: casServerLoginUrl,
-                serverName: applicationServerUrl,
+                serverName       : applicationServerUrl,
         ]))
         ticketValidationFilter = new Cas20ProxyReceivingTicketValidationFilter()
         ticketValidationFilter.init(new SimpleFilterConfig(servletContext, "ticketValidationFilter", [
                 casServerUrlPrefix: casServerUrl,
-                serverName: applicationServerUrl,
+                serverName        : applicationServerUrl,
         ]))
     }
 

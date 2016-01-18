@@ -6,7 +6,7 @@ import javax.servlet.ServletContext
 /**
  * @author Daniel Wiell
  */
-class SimpleFilterConfig implements FilterConfig{
+class SimpleFilterConfig implements FilterConfig {
     private final Map<String, String> initParams
     final ServletContext servletContext
     final String filterName

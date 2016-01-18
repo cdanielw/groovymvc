@@ -7,6 +7,7 @@ import groovymvc.validate.DefaultValidator
 import spock.lang.Specification
 
 import java.text.SimpleDateFormat
+
 /**
  * @author Daniel Wiell
  */

@@ -67,7 +67,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get("/{$key}") {
             valueFromParams = params[key]
         }
-        when: client.get(path: value)
+        when:
+        client.get(path: value)
         then:
         valueFromParams == value
     }
@@ -79,8 +80,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
             containsParam = params.containsKey('param')
         }
 
-        when: client.post(path: '', body: [param: 'value'], requestContentType: ContentType.URLENC)
-        then: containsParam
+        when:
+        client.post(path: '', body: [param: 'value'], requestContentType: ContentType.URLENC)
+        then:
+        containsParam
     }
 
 
@@ -91,7 +94,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/**') {
             valueFromParams = params[key]
         }
-        when: client.get(path: '', query: [(key): value])
+        when:
+        client.get(path: '', query: [(key): value])
         then:
         valueFromParams == value
     }
@@ -101,8 +105,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/{paramOne}') {
             paramsInRequest = params
         }
-        when: client.get(path: 'foo', query: [paramTwo: 'bar'])
-        then: paramsInRequest == [paramOne: 'foo', paramTwo: 'bar']
+        when:
+        client.get(path: 'foo', query: [paramTwo: 'bar'])
+        then:
+        paramsInRequest == [paramOne: 'foo', paramTwo: 'bar']
     }
 
     def 'A POST route cannot be accessed with a GET'() {
@@ -121,8 +127,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/**') {
             render('some template', [paramOne: 'foo'])
         }
-        when: client.get(path: '')
-        then: 1 * renderer.render('some template', {
+        when:
+        client.get(path: '')
+        then:
+        1 * renderer.render('some template', {
             'paramOne' in it.keySet()
         } as Map, _)
     }
@@ -135,8 +143,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/{foo[]}') {
             foo = params.foo
         }
-        when: client.get(path: 'bar', query: ['foo[]': 'baz'])
-        then: foo == ['bar', 'baz']
+        when:
+        client.get(path: 'bar', query: ['foo[]': 'baz'])
+        then:
+        foo == ['bar', 'baz']
     }
 
 
@@ -154,17 +164,21 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.before(Controller.GET, '/**') { invocations << 'second before' }
         c.after(Controller.GET, '/**') { invocations << 'second after' }
 
-        when: client.get(path: '')
-        then: invocations == ['first filter before', 'second filter before', 'first before', 'second before', 'route',
-                'first after', 'second after', 'second filter after', 'first filter after']
+        when:
+        client.get(path: '')
+        then:
+        invocations == ['first filter before', 'second filter before', 'first before', 'second before', 'route',
+                        'first after', 'second after', 'second filter after', 'first filter after']
     }
 
     def 'Around filter is invoked for non-existing resources'() {
         def invocations = []
         c.filter(Controller.GET, '/**') { invocations << 'before'; it.call(); invocations << 'after' }
         c.error(404) { invocations << 'error' }
-        when: client.get(path: '')
-        then: invocations == ['before', 'error', 'after']
+        when:
+        client.get(path: '')
+        then:
+        invocations == ['before', 'error', 'after']
     }
 
     def 'Error handling is done within around filter'() {
@@ -174,14 +188,20 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
             invocations << 'before'; it.call(); invocations << 'after'; println response.status
         }
         c.error(IllegalStateException) { invocations << 'error' }
-        when: client.get(path: '')
-        then: invocations == ['before', 'error', 'after']
+        when:
+        client.get(path: '')
+        then:
+        invocations == ['before', 'error', 'after']
     }
 
     def 'Around filter can wrap request and response'() {
         c.filter(Controller.GET, '/**') {
-            def wrappedReq = new HttpServletRequestWrapper(request) { String toString() { 'wrapped' } }
-            def wrappedResp = new HttpServletResponseWrapper(response) { String toString() { 'wrapped' } }
+            def wrappedReq = new HttpServletRequestWrapper(request) {
+                String toString() { 'wrapped' }
+            }
+            def wrappedResp = new HttpServletResponseWrapper(response) {
+                String toString() { 'wrapped' }
+            }
             it.call(wrap(wrappedReq, wrappedResp))
         }
         boolean requestIsWrapped = false
@@ -191,7 +211,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
             responseIsWrapped = response.toString() == 'wrapped'
         }
 
-        when: client.get(path: '')
+        when:
+        client.get(path: '')
         then:
         requestIsWrapped
         responseIsWrapped
@@ -199,28 +220,38 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
 
     def 'Multiple Around filter can wrap requests and responses'() {
         c.filter(Controller.GET, '/**') {
-            def wrappedReq = new HttpServletRequestWrapper(request) { String toString() { 'wrapped1' } }
-            def wrappedResp = new HttpServletResponseWrapper(response) { String toString() { 'wrapped1' } }
+            def wrappedReq = new HttpServletRequestWrapper(request) {
+                String toString() { 'wrapped1' }
+            }
+            def wrappedResp = new HttpServletResponseWrapper(response) {
+                String toString() { 'wrapped1' }
+            }
             it.call(wrap(wrappedReq, wrappedResp))
         }
         c.filter(Controller.GET, '/**') {
             assert request.toString() == 'wrapped1'
             assert response.toString() == 'wrapped1'
-            def wrappedReq = new HttpServletRequestWrapper(request) { String toString() { 'wrapped2' } }
-            def wrappedResp = new HttpServletResponseWrapper(response) { String toString() { 'wrapped2' } }
+            def wrappedReq = new HttpServletRequestWrapper(request) {
+                String toString() { 'wrapped2' }
+            }
+            def wrappedResp = new HttpServletResponseWrapper(response) {
+                String toString() { 'wrapped2' }
+            }
             it.call(wrap(wrappedReq, wrappedResp))
         }
         c.get('/**') {
             assert request.toString() == 'wrapped2'
             assert response.toString() == 'wrapped2'
         }
-        expect: client.get(path: '')
+        expect:
+        client.get(path: '')
     }
 
     def 'Exception handlers defaults to 500 response'() {
         c.get('/**') { throw new IllegalStateException() }
         c.error(IllegalStateException) {}
-        expect: client.get(path: '').status == 500
+        expect:
+        client.get(path: '').status == 500
     }
 
     def 'Filters are not invoked when no route match'() {
@@ -242,8 +273,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.after(Controller.POST, '/**') { invocations << 'after' }
         c.get('/**') {}
 
-        when: client.get(path: '')
-        then: invocations.empty
+        when:
+        client.get(path: '')
+        then:
+        invocations.empty
     }
 
 
@@ -268,7 +301,9 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
             response.status = 555
             send(it.message)
         }
-        c.get('/**') { throw new IllegalStateException('Root exception', new IllegalArgumentException('The cause exception')) }
+        c.get('/**') {
+            throw new IllegalStateException('Root exception', new IllegalArgumentException('The cause exception'))
+        }
 
         when:
         def r = client.get(path: '')
@@ -313,8 +348,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         }
         c.get('/**') { routeInvoked = true }
 
-        when: client.get(path: '')
-        then: !routeInvoked
+        when:
+        client.get(path: '')
+        then:
+        !routeInvoked
     }
 
 
@@ -338,7 +375,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
             client.execute(request, new BasicResponseHandler())
         }
 
-        then: invokedMethods == Controller.ALL_METHODS
+        then:
+        invokedMethods == Controller.ALL_METHODS
     }
 
     def 'Can redirect'() {
@@ -346,8 +384,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/bar') { redirected = true }
         c.get('/foo') { redirect('/bar') }
 
-        when: client.get(path: 'foo')
-        then: redirected
+        when:
+        client.get(path: 'foo')
+        then:
+        redirected
     }
 
 
@@ -356,8 +396,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.exclude('/**/*.css')
         c.get('/**') { handled = true }
 
-        when: client.get(path: 'excluded-file.css')
-        then: !handled
+        when:
+        client.get(path: 'excluded-file.css')
+        then:
+        !handled
     }
 
 
@@ -400,16 +442,20 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         def errorHandled = false
         c.get('/**') { send params.a }
         c.error(ParamsException) { errorHandled = true }
-        when: client.get(path: 'test', query: [a: 'foo', 'a.b': 'bar'])
-        then: errorHandled
+        when:
+        client.get(path: 'test', query: [a: 'foo', 'a.b': 'bar'])
+        then:
+        errorHandled
     }
 
 
     def 'When route not found error handler for 404 is called'() {
         def errorHandled = false
         c.error(404) { errorHandled = true }
-        when: client.get(path: '')
-        then: errorHandled
+        when:
+        client.get(path: '')
+        then:
+        errorHandled
     }
 
     def 'When route halts, registered error handler is called'() {
@@ -417,8 +463,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/**') { halt(456) }
         c.error(456) { errorHandled = true }
 
-        when: client.get(path: '')
-        then: errorHandled
+        when:
+        client.get(path: '')
+        then:
+        errorHandled
     }
 
     def 'When route sets status code, registered error handler is called'() {
@@ -426,8 +474,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.get('/**') { response.status = 456 }
         c.error(456) { errorHandled = true }
 
-        when: client.get(path: '')
-        then: errorHandled
+        when:
+        client.get(path: '')
+        then:
+        errorHandled
     }
 
     def 'When exception handler sets status, registered status error handler is not called'() {
@@ -436,8 +486,10 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.error(IllegalStateException) { response.status = 456 }
         c.error(456) { errorHandled = true }
 
-        when: client.get(path: '')
-        then: !errorHandled
+        when:
+        client.get(path: '')
+        then:
+        !errorHandled
     }
 
     def 'When exception handler halts, correct status code is returned'() {
@@ -447,7 +499,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         when:
         def response = client.get(path: '')
 
-        then: response.status == 456
+        then:
+        response.status == 456
     }
 
 
@@ -464,7 +517,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         client.get(path: '', query: [status: 600])
         client.get(path: '', query: [status: 601])
 
-        then: errorsHandled == [400, 401, 599, 600]
+        then:
+        errorsHandled == [400, 401, 599, 600]
     }
 
 
@@ -476,7 +530,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.error(456) { firstHandlerCalled = true }
         c.error(456) { secondHandlerCalled = true }
 
-        when: client.get(path: '')
+        when:
+        client.get(path: '')
         then:
         firstHandlerCalled
         !secondHandlerCalled
@@ -490,7 +545,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         c.error(IllegalStateException) { firstHandlerCalled = true }
         c.error(IllegalStateException) { secondHandlerCalled = true }
 
-        when: client.get(path: '')
+        when:
+        client.get(path: '')
         then:
         firstHandlerCalled
         !secondHandlerCalled
@@ -502,7 +558,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         when:
         def resp = client.get(path: '')
 
-        then: resp.contentType == 'text/html'
+        then:
+        resp.contentType == 'text/html'
     }
 
     def 'If no character encoding is specified, UTF-8 is used'() {
@@ -510,7 +567,8 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         when:
         def resp = client.get(path: '')
 
-        then: resp.entity.contentType.value.contains('UTF-8')
+        then:
+        resp.entity.contentType.value.contains('UTF-8')
     }
 
 }

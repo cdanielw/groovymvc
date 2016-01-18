@@ -24,6 +24,7 @@ import javax.servlet.ServletContext
 import javax.servlet.ServletException
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
+
 /**
  * A {@link TemplateRenderer} allowing templates to be decorated using SiteMesh, and custom tags to be used.
  *

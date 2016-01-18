@@ -6,8 +6,8 @@ import groovymvc.Params
 import groovymvc.RequestContext
 import groovymvc.bind.Errors
 import groovymvc.security.User
-import groovymvc.template.sitemesh.SiteMeshRenderer
 import groovymvc.util.Escape
+
 /**
  * @author Daniel Wiell
  */

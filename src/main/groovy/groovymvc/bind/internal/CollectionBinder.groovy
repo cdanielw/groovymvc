@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory
 
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
+
 /**
  * @author Daniel Wiell
  */

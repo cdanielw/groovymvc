@@ -11,7 +11,8 @@ class MessageSourceTest extends Specification {
 
     @Unroll
     def '#key: "#value"'(String key, String value) {
-        expect: messages.message(key, Locale.ITALIAN) == value
+        expect:
+        messages.message(key, Locale.ITALIAN) == value
         where:
         key           | value
         'foo.only'    | 'Foo only'
@@ -26,18 +27,22 @@ class MessageSourceTest extends Specification {
         when:
         def message = messages.message('with.argument', 'A test argument')
 
-        then: message == 'Property with argument: A test argument'
+        then:
+        message == 'Property with argument: A test argument'
     }
 
     def 'Arguments can be provided, even if message contains no placeholder'() {
         when:
         def message = messages.message('without.argument', 'A test argument')
 
-        then: message == 'Property without argument'
+        then:
+        message == 'Property without argument'
     }
 
     def 'When given non-existing base name, MissingResourceException is thrown'() {
-        when: DefaultMessageSource.messageSource('foo', 'nonExisting')
-        then: thrown(MissingResourceException)
+        when:
+        DefaultMessageSource.messageSource('foo', 'nonExisting')
+        then:
+        thrown(MissingResourceException)
     }
 }

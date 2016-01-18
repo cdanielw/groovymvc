@@ -2,6 +2,7 @@ package groovymvc.template.sitemesh
 
 import groovy.xml.XmlUtil
 import groovymvc.AbstractIntegrationTest
+
 /**
  * @author Daniel Wiell
  */

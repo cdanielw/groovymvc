@@ -6,6 +6,7 @@ import spock.lang.Specification
 
 import static groovymvc.validate.Constraints.newConstraint
 import static groovymvc.validate.Constraints.notNull
+
 /**
  * @author Daniel Wiell
  */
@@ -20,7 +21,8 @@ class ConstraintViolation_Test extends Specification {
         def ctx = createContext(root)
         def violation = new ConstraintViolation(ctx, CONSTRAINT, 'middle', 'middle', root.middle, 'theMessageKey')
 
-        expect: violation.messageKeys == [
+        expect:
+        violation.messageKeys == [
                 "RootBean.middle.theMessageKey",
                 "MiddleBean.theMessageKey",
                 "theMessageKey",
@@ -33,7 +35,8 @@ class ConstraintViolation_Test extends Specification {
         def violation = new ConstraintViolation(ctx, CONSTRAINT,
                 'middle.leaf.value', 'value', root.middle.leaf.value, 'theMessageKey')
 
-        expect: violation.messageKeys == [
+        expect:
+        violation.messageKeys == [
                 "RootBean.middle.leaf.value.theMessageKey",
                 "LeafBean.value.theMessageKey",
                 "String.theMessageKey",

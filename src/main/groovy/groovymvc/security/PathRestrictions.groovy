@@ -7,6 +7,7 @@ import groovymvc.internal.PathCallbacks
 import javax.servlet.http.HttpServletRequest
 
 import static RequestContext.CURRENT_USER_SESSION_ATTRIBUTE
+
 /**
  * @author Daniel Wiell
  */

@@ -30,13 +30,15 @@ class PasswordEncoderTest extends Specification {
         def salt = 'salt1'
         def encoded = PasswordEncoder.encode(password, salt)
 
-        expect: PasswordEncoder.isPasswordValid(encoded, password, salt)
+        expect:
+        PasswordEncoder.isPasswordValid(encoded, password, salt)
     }
 
     def 'Can validate incorrect password'() {
         def salt = 'salt1'
         def encoded = PasswordEncoder.encode('a password', salt)
 
-        expect: !PasswordEncoder.isPasswordValid(encoded, 'another password', salt)
+        expect:
+        !PasswordEncoder.isPasswordValid(encoded, 'another password', salt)
     }
 }

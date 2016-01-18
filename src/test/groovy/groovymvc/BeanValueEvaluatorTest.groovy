@@ -7,6 +7,7 @@ import groovymvc.bind.PropertyError
 import groovymvc.internal.BeanValueEvaluator
 import spock.lang.Specification
 import spock.lang.Unroll
+
 /**
  * @author Daniel Wiell
  */
@@ -20,7 +21,8 @@ class BeanValueEvaluatorTest extends Specification {
         when:
         def value = BeanValueEvaluator.value(bean, path, binder, null)
 
-        then: value == expectation
+        then:
+        value == expectation
         where:
         bean                                                                     | path                  | expectation
         new Target()                                                             | 'nonexisting'         | null

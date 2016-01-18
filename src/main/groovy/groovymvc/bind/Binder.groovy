@@ -1,6 +1,7 @@
 package groovymvc.bind
 
 import groovymvc.Params
+
 /**
  * Populates a bean based on a {@link Params} instance.
  *

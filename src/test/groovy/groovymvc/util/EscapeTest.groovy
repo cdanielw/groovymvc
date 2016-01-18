@@ -8,12 +8,14 @@ import spock.lang.Specification
 class EscapeTest extends Specification {
 
     def 'Can escape HTML'() {
-        expect: Escape.html('<') == '&lt;'
+        expect:
+        Escape.html('<') == '&lt;'
     }
 
 
     def 'Can escape JavaScript'() {
-        expect: Escape.javaScript('\b') == '\\b'
+        expect:
+        Escape.javaScript('\b') == '\\b'
     }
 
 }

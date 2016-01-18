@@ -2,6 +2,7 @@ package groovymvc.validate
 
 import groovymvc.bind.Errors
 import groovymvc.bind.PropertyError
+
 /**
  * Validates a bean against registered constraints.
  *

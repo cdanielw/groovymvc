@@ -6,7 +6,6 @@ import groovymvc.i18n.MessageSource
 import org.codehaus.groovy.reflection.CachedMethod
 
 import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 
 /**
  * @author Daniel Wiell

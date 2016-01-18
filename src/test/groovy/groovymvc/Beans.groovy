@@ -1,6 +1,7 @@
 package groovymvc
 
 import static groovymvc.validate.Constraints.*
+
 /**
  * @author Daniel Wiell
  */
@@ -11,9 +12,9 @@ class Author {
     List<Book> books
 
     static constraints = [
-            name: [notNull(), notBlank()],
+            name       : [notNull(), notBlank()],
             dateOfBirth: custom { it < new Date() },
-            books: every(valid())
+            books      : every(valid())
     ]
 
     public String toString() {
@@ -33,8 +34,8 @@ class Book {
     Author author
 
     static constraints = [
-            title: [notNull(), notBlank(), maxLength(10)],
-            year: min(1),
+            title : [notNull(), notBlank(), maxLength(10)],
+            year  : min(1),
             author: notNull()
     ]
 

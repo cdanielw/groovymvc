@@ -11,6 +11,7 @@ import org.eclipse.jetty.util.resource.Resource
 
 import javax.servlet.DispatcherType
 import javax.servlet.ServletContext
+
 /**
  * @author Daniel Wiell
  */

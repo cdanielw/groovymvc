@@ -14,8 +14,10 @@ class DefaultBinder_Test extends Specification {
 
     @Unroll
     def 'Can bind #propertyName'(String propertyName, String paramValue, boundValue) {
-        when: binder.bind(target, new Params((propertyName): paramValue))
-        then: target[propertyName] == boundValue
+        when:
+        binder.bind(target, new Params((propertyName): paramValue))
+        then:
+        target[propertyName] == boundValue
         where:
         propertyName       | paramValue | boundValue
         'anInt'            | '123'      | 123
@@ -37,28 +39,33 @@ class DefaultBinder_Test extends Specification {
     def 'Can bind #propertyName to empty property'(String propertyName, startValue, boundValue) {
         target[propertyName] = startValue
 
-        when: binder.bind(target, new Params((propertyName): [:]))
-        then: target[propertyName] == boundValue
+        when:
+        binder.bind(target, new Params((propertyName): [:]))
+        then:
+        target[propertyName] == boundValue
         where:
-        propertyName       | startValue        | boundValue
-        'anInt'            | 1                 | 0
-        'anIntegerWrapper' | new Integer(1)    | null
-        'aLong'            | 1L                | 0
-        'aLongWrapper'     | new Long(1)       | null
-        'aString'          | 'value'           | null
-        'anEnum'           | AnEnum.FOO | null
-        'aBoolean'         | true              | false
-        'aBooleanWrapper'  | Boolean.TRUE      | null
+        propertyName       | startValue     | boundValue
+        'anInt'            | 1              | 0
+        'anIntegerWrapper' | new Integer(1) | null
+        'aLong'            | 1L             | 0
+        'aLongWrapper'     | new Long(1)    | null
+        'aString'          | 'value'        | null
+        'anEnum'           | AnEnum.FOO     | null
+        'aBoolean'         | true           | false
+        'aBooleanWrapper'  | Boolean.TRUE   | null
     }
 
 
     def 'Can bind nested properties'() {
-        when: binder.bind(target, new Params(nested: [anInt: '123']))
-        then: target.nested.anInt == 123
+        when:
+        binder.bind(target, new Params(nested: [anInt: '123']))
+        then:
+        target.nested.anInt == 123
     }
 
     def 'Successfully binding returns empty map'() {
-        expect: binder.bind(target, new Params(nested: [anInt: '123'])).isEmpty()
+        expect:
+        binder.bind(target, new Params(nested: [anInt: '123'])).isEmpty()
     }
 
     def 'Failing a binding returns PropertyError'() {
@@ -88,13 +95,15 @@ class DefaultBinder_Test extends Specification {
     }
 
     def 'Can bind list of properties'() {
-        when: binder.bind(target, new Params(intList: ['123', '456', '789']))
+        when:
+        binder.bind(target, new Params(intList: ['123', '456', '789']))
         then:
         target.intList == [123, 456, 789]
     }
 
     def 'Can bind list of properties with empty values'() {
-        when: binder.bind(target, new Params(intList: [[:], '456', '789']))
+        when:
+        binder.bind(target, new Params(intList: [[:], '456', '789']))
         then:
         target.intList == [null, 456, 789]
     }
@@ -116,7 +125,8 @@ class DefaultBinder_Test extends Specification {
     }
 
     def 'Can bind an empty list'() {
-        when: binder.bind(target, new Params(intList: []))
+        when:
+        binder.bind(target, new Params(intList: []))
         then:
         target.intList == []
     }
@@ -139,7 +149,8 @@ class DefaultBinder_Test extends Specification {
         when:
         def value = binder.format(Date.parse('yyyy MM dd', '2013 10 18'))
 
-        then: value == '18 10 2013'
+        then:
+        value == '18 10 2013'
     }
 
 
@@ -151,18 +162,21 @@ class DefaultBinder_Test extends Specification {
         when:
         def value = binder.format(new java.sql.Date(Date.parse('yyyy MM dd', '2013 10 18').time))
 
-        then: value == '18 10 2013'
+        then:
+        value == '18 10 2013'
     }
 
     def 'Formatting a type without registered formatter, type is coerced to String'() {
         def date = new Date()
-        expect: binder.format(date) == date as String
+        expect:
+        binder.format(date) == date as String
     }
 
 
     def 'Unspecified properties on nested properties are unchanged'() {
         target = new Target(nested: new Nested(aLong: 456L))
-        when: binder.bind(target, new Params(nested: [anInt: '123']))
+        when:
+        binder.bind(target, new Params(nested: [anInt: '123']))
         then:
         target.nested.anInt == 123
         target.nested.aLong == 456L
@@ -199,33 +213,38 @@ class DefaultBinder_Test extends Specification {
     }
 
     def 'Can bind list of properties in nested object'() {
-        when: binder.bind(target, new Params(nested: [longList: ['123', '456', '789']]))
+        when:
+        binder.bind(target, new Params(nested: [longList: ['123', '456', '789']]))
         then:
         target.nested.longList == [123, 456, 789]
     }
 
     def 'Can bind list of nested properties'() {
-        when: binder.bind(target, new Params(nestedList: [[anInt: '123'], [anInt: '456']]))
+        when:
+        binder.bind(target, new Params(nestedList: [[anInt: '123'], [anInt: '456']]))
         then:
         target.nestedList == [new Nested(anInt: 123), new Nested(anInt: 456)]
     }
 
     def 'Can bind sorted set of properties'() {
-        when: binder.bind(target, new Params(sortedSet: ['456', '123', '789']))
+        when:
+        binder.bind(target, new Params(sortedSet: ['456', '123', '789']))
         then:
         target.sortedSet instanceof SortedSet
         target.sortedSet as List == [123, 456, 789]
     }
 
     def 'Can bind collection of properties'() {
-        when: binder.bind(target, new Params(collection: ['123', '456', '789']))
+        when:
+        binder.bind(target, new Params(collection: ['123', '456', '789']))
         then:
         target.collection instanceof List
         target.collection == [123, 456, 789]
     }
 
     def 'Can bind set of properties'() {
-        when: binder.bind(target, new Params(set: ['456', '123', '789']))
+        when:
+        binder.bind(target, new Params(set: ['456', '123', '789']))
         then:
         target.set instanceof HashSet
         target.set == [123, 456, 789] as Set
@@ -242,7 +261,8 @@ class DefaultBinder_Test extends Specification {
     }
 
     def 'Can bind deeply nested properties'() {
-        when: binder.bind(target, new Params(nested: [nested: [anInt: '123']]))
+        when:
+        binder.bind(target, new Params(nested: [nested: [anInt: '123']]))
         then:
         target.nested.nested.anInt == 123
     }
@@ -268,7 +288,8 @@ class DefaultBinder_Test extends Specification {
 
 
     def 'Can bind a map'() {
-        when: binder.bind(target, new Params(anInitializedMap: [a: 'foo', b: 'bar']))
+        when:
+        binder.bind(target, new Params(anInitializedMap: [a: 'foo', b: 'bar']))
         then:
         target.anInitializedMap.a == 'foo'
         target.anInitializedMap.b == 'bar'
@@ -276,26 +297,34 @@ class DefaultBinder_Test extends Specification {
 
 
     def 'Can bind a typed map'() {
-        when: binder.bind(target, new Params(aTypedMap: [FOO: '123', BAR: '456']))
+        when:
+        binder.bind(target, new Params(aTypedMap: [FOO: '123', BAR: '456']))
         then:
         target.aTypedMap[AnEnum.FOO] == 123
         target.aTypedMap[AnEnum.BAR] == 456
     }
 
     def 'Can bind a map with nested values'() {
-        when: binder.bind(target, new Params(aNestedMap: [a: [nested: [anInt: '123']]]))
-        then: target.aNestedMap.a.nested.anInt == 123
+        when:
+        binder.bind(target, new Params(aNestedMap: [a: [nested: [anInt: '123']]]))
+        then:
+        target.aNestedMap.a.nested.anInt == 123
     }
 
     def 'Can bind a typed map in nested'() {
-        when: binder.bind(target, new Params(nested: [aTypedMap: [FOO: '123', BAR: '456']]))
-        then: target.nested.aTypedMap[AnEnum.FOO] == 123
+        when:
+        binder.bind(target, new Params(nested: [aTypedMap: [FOO: '123', BAR: '456']]))
+        then:
+        target.nested.aTypedMap[AnEnum.FOO] == 123
     }
 
     def 'Can bind a collection of typed maps'() {
-        when: binder.bind(target, new Params('typedMapList': [[FOO: '123'], [BAR: '345']]))
-        then: target.typedMapList[0][AnEnum.FOO] == 123
-        then: target.typedMapList[1][AnEnum.BAR] == 345
+        when:
+        binder.bind(target, new Params('typedMapList': [[FOO: '123'], [BAR: '345']]))
+        then:
+        target.typedMapList[0][AnEnum.FOO] == 123
+        then:
+        target.typedMapList[1][AnEnum.BAR] == 345
     }
 
     def 'Failure binding typed map key returns error'() {
@@ -315,7 +344,8 @@ class DefaultBinder_Test extends Specification {
     }
 
     def 'Can bind an uninitialized map'() {
-        when: binder.bind(target, new Params(anUninitializedMap: [a: 'foo', b: 'bar']))
+        when:
+        binder.bind(target, new Params(anUninitializedMap: [a: 'foo', b: 'bar']))
         then:
         target.anUninitializedMap.a == 'foo'
         target.anUninitializedMap.b == 'bar'
@@ -359,7 +389,7 @@ class DefaultBinder_Test extends Specification {
         Map<AnEnum, Integer> aTypedMap
         Nested nested
     }
-    
+
     enum AnEnum {
         FOO, BAR
     }

@@ -1,6 +1,7 @@
 package groovymvc.template
 
 import groovymvc.RequestContext
+
 /**
  * @author Daniel Wiell
  */

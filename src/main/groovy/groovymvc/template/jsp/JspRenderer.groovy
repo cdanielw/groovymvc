@@ -5,6 +5,7 @@ import groovymvc.RequestContext
 import groovymvc.template.TemplateNotFoundException
 import groovymvc.template.TemplateRenderer
 import groovymvc.template.TemplateSupport
+
 /**
  * A {@link TemplateRenderer} forwarding to JSP pages.
  * @author Daniel Wiell

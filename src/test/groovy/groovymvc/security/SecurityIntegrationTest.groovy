@@ -1,7 +1,7 @@
 package groovymvc.security
 
 import groovymvc.AbstractIntegrationTest
-import groovymvc.security.User
+
 /**
  * @author Daniel Wiell
  */
@@ -15,8 +15,10 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
 
         principalProvider.lookup(_) >> new TestUser('some username', 'another role')
 
-        when: client.get(path: 'foo/bar')
-        then: !accessed
+        when:
+        client.get(path: 'foo/bar')
+        then:
+        !accessed
     }
 
     def 'Can restrict access directly on controller'() {
@@ -28,8 +30,10 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
 
         principalProvider.lookup(_) >> new TestUser('some username', 'another role')
 
-        when: client.get(path: 'foo/bar')
-        then: !accessed
+        when:
+        client.get(path: 'foo/bar')
+        then:
+        !accessed
     }
 
 
@@ -43,8 +47,10 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
 
         principalProvider.lookup(_) >> new TestUser('some username', 'another role')
 
-        when: client.get(path: 'foo/bar')
-        then: !accessed
+        when:
+        client.get(path: 'foo/bar')
+        then:
+        !accessed
     }
 
 
@@ -61,7 +67,8 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
 
         principalProvider.lookup(_) >> new TestUser('some username', 'some role')
 
-        when: client.get(path: 'foo/bar')
+        when:
+        client.get(path: 'foo/bar')
         then:
         principalName == 'some username'
         remoteUser == 'some username'

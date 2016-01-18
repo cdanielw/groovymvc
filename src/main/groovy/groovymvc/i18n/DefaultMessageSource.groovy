@@ -3,6 +3,7 @@ package groovymvc.i18n
 import javax.servlet.ServletContext
 import java.text.MessageFormat
 import java.util.ResourceBundle.Control
+
 /**
  * @author Daniel Wiell
  */

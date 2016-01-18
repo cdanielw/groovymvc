@@ -1,6 +1,7 @@
 package groovymvc.validate
 
 import groovymvc.bind.PropertyError
+
 /**
  * @author wiell
  */

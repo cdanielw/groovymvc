@@ -3,6 +3,7 @@ package groovymvc.validate
 import spock.lang.Specification
 
 import static groovymvc.validate.Constraints.*
+
 /**
  * @author wiell
  */
@@ -11,8 +12,10 @@ class DefaultValidator_Test extends Specification {
     def validator = new DefaultValidator(UNUSED_MESSAGE_SOURCE)
 
     def 'Given a bean of a non-registered type, when validating, exception is thrown'() {
-        when: validator.validate(new DummyValidatable())
-        then: thrown IllegalStateException
+        when:
+        validator.validate(new DummyValidatable())
+        then:
+        thrown IllegalStateException
     }
 
     def 'Given a bean with no constraints, when validating, an empty map is returned'() {
@@ -27,19 +30,26 @@ class DefaultValidator_Test extends Specification {
     }
 
     def 'When validating null, exception is thrown'() {
-        when: validator.validate(null)
-        then: thrown IllegalArgumentException
+        when:
+        validator.validate(null)
+        then:
+        thrown IllegalArgumentException
     }
 
     def 'When registering constraint with non-existing path, exception is thrown'() {
-        when: validator.register(DummyValidatable, [nonExisting: notNull()])
-        then: thrown IllegalArgumentException
+        when:
+        validator.register(DummyValidatable, [nonExisting: notNull()])
+        then:
+        thrown IllegalArgumentException
     }
 
     def 'When registering map where values are not constrains or collections of constraints, exception is thrown'(Map constraints) {
-        when: validator.register(DummyValidatable, constraints)
-        then: thrown IllegalArgumentException
-        where: constraints << [
+        when:
+        validator.register(DummyValidatable, constraints)
+        then:
+        thrown IllegalArgumentException
+        where:
+        constraints << [
                 [property: null],
                 [property: 'Not a constraint'],
                 [property: ['Not a constraint']],
@@ -49,8 +59,10 @@ class DefaultValidator_Test extends Specification {
     }
 
     def 'Given constraint on super class property, when registering constraint,  no exception is thrown'() {
-        when: validator.register(DummyValidatable, [parentProperty: notNull()])
-        then: notThrown Exception
+        when:
+        validator.register(DummyValidatable, [parentProperty: notNull()])
+        then:
+        notThrown Exception
     }
 
     def 'Given a bean with single constraint violation, when validating, a map with the constraint violation is returned'() {
@@ -164,13 +176,15 @@ class DefaultValidator_Test extends Specification {
     def 'No violations when validating elements of null list'() {
         validator.register(DummyValidatable, [list: every(notNull())])
 
-        expect: validator.validate(new DummyValidatable()).isEmpty()
+        expect:
+        validator.validate(new DummyValidatable()).isEmpty()
     }
 
     def 'No violations when validating nested null bean'() {
         validator.register(DummyValidatable, [nested: valid()])
 
-        expect: validator.validate(new DummyValidatable()).isEmpty()
+        expect:
+        validator.validate(new DummyValidatable()).isEmpty()
     }
 
 
@@ -232,7 +246,8 @@ class DefaultValidator_Test extends Specification {
 
         def property = 'The property'
         def bean = new DummyValidatable(property: property)
-        when: validator.validate(bean)
+        when:
+        validator.validate(bean)
         then:
         first == property
         second == bean
@@ -240,13 +255,17 @@ class DefaultValidator_Test extends Specification {
 
 
     def 'Custom constraint with 0 arguments throws IllegalArgumentException when registring'() {
-        when: validator.register(DummyValidatable, [property: custom { -> }])
-        then: thrown IllegalArgumentException
+        when:
+        validator.register(DummyValidatable, [property: custom { -> }])
+        then:
+        thrown IllegalArgumentException
     }
 
     def 'Custom constraint with 3 arguments throws IllegalArgumentException when registring'() {
-        when: validator.register(DummyValidatable, [property: custom { a, b, c-> }])
-        then: thrown IllegalArgumentException
+        when:
+        validator.register(DummyValidatable, [property: custom { a, b, c -> }])
+        then:
+        thrown IllegalArgumentException
     }
 
 

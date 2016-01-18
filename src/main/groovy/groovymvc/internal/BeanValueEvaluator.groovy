@@ -4,6 +4,7 @@ import groovymvc.bind.Binder
 import groovymvc.bind.Errors
 
 import java.util.regex.Pattern
+
 /**
  * @author Daniel Wiell
  */

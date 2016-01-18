@@ -2,7 +2,7 @@ package groovymvc.template.sitemesh
 
 import groovy.xml.XmlUtil
 import groovymvc.AbstractIntegrationTest
-import groovymvc.template.TemplateNotFoundException
+
 /**
  * @author Daniel Wiell
  */

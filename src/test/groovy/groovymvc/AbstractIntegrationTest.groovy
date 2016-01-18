@@ -8,6 +8,7 @@ import groovymvc.template.TemplateRenderer
 import spock.lang.Specification
 
 import javax.servlet.ServletContext
+
 /**
  * @author Daniel Wiell
  */

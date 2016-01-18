@@ -6,6 +6,7 @@ import groovymvc.validate.internal.ConstraintViolation
 import groovymvc.validate.internal.IndexedConstraints
 
 import java.util.regex.Pattern
+
 /**
  * Container for constraints.
  *

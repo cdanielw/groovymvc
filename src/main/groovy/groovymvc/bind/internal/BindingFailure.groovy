@@ -2,6 +2,7 @@ package groovymvc.bind.internal
 
 import groovymvc.bind.BeanProperty
 import groovymvc.bind.PropertyError
+
 /**
  * @author Daniel Wiell
  */

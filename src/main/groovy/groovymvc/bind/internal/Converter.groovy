@@ -1,6 +1,7 @@
 package groovymvc.bind.internal
 
 import groovymvc.bind.BeanProperty
+
 /**
  * @author Daniel Wiell
  */

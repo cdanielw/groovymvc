@@ -1,6 +1,7 @@
 package groovymvc.template.jsp
 
 import groovymvc.AbstractIntegrationTest
+
 /**
  * @author Daniel Wiell
  */

@@ -1,6 +1,7 @@
 package groovymvc.security
 
 import groovymvc.RequestContext
+
 /**
  * @author Daniel Wiell
  */
