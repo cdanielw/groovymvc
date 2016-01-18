@@ -1,0 +1,3 @@
+moduleName = groovy-mvc
+moduleVersion = 1.0
+extensionClasses = groovymvc.multipart.PartExtension
