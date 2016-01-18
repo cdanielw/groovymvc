@@ -32,16 +32,15 @@ import java.util.concurrent.CopyOnWriteArrayList
  *
  * <p>Example:
  * <blockquote><pre>
- * import static groovymvc.i18n.DefaultMessageSource.messageSource
  *
  * class Bookstore extends AbstractMvcFilter &#123;
- *     Controller bootstrap() &#123;
+ *     Controller bootstrap(ServletContext servletContext) &#123;
  *         def controller = Controller.builder(servletContext)
- *                 .reloadableMessageSource('my.messages')
+ *                 .messageSource('my.messages')
  *                 .build()
  *
  *         controller.with &#123;
- *             exclude '/css/*', '/js/*
+ *             exclude '/css/*', '/js/*'
  *             constrain(Author, Author.constraints)
  *             converter(Date) &#123;
  *                 Date.parse('yyyy-MM-dd', it as String)
@@ -665,6 +664,8 @@ class Controller {
      * If it contains {@link Controller#NO_AUTHORIZATION}, authorization will not event be triggered.
      */
     void restrict(String method, String pathPattern, List<String> roles) {
+        if (restrictions == null)
+            throw new IllegalStateException('PathRestrictions was not specified when constructing Controller')
         restrictions.restrict(method, pathPattern, roles)
     }
 
