@@ -308,7 +308,7 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com/cdanielw/groovymvc.git</connection>
+        <connection>scm:git:https://github.com/cdanielw/groovymvc.git</connection>
         <tag>HEAD</tag>
     </scm>
 
