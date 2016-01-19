@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.fao.foris.groovy.mvc</groupId>
     <artifactId>groovy-mvc</artifactId>
-    <version>0.6.1-SNAPSHOT</version>
+    <version>0.6.2-SNAPSHOT</version>
     <name>Groovy MVC</name>
     <packaging>jar</packaging>
 
@@ -307,7 +307,7 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:git://github.com/cdanielw/groovymvc.git</connection>
+        <connection>scm:git:ssh://git@ldvfo01.fao.org/groovy-mvc.git</connection>
         <tag>HEAD</tag>
     </scm>
 
