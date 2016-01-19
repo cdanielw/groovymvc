@@ -1,6 +1,7 @@
 package groovymvc
 
 import groovymvc.template.TemplateRenderer
+import groovymvc.validate.Constraints
 import groovyx.net.http.ContentType
 import org.apache.http.client.methods.HttpRequestBase
 import org.apache.http.impl.client.BasicResponseHandler
@@ -279,7 +280,6 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         invocations.empty
     }
 
-
     def 'Can register an error handler for exception'() {
         c.error(IllegalStateException) {
             response.status = 555
@@ -312,7 +312,6 @@ class ControllerIntegrationTest extends AbstractIntegrationTest {
         r.status == 555
         r.data == 'The cause exception'
     }
-
 
     def 'Error handler is invoked for exception subclasses'() {
         c.error(Exception) {

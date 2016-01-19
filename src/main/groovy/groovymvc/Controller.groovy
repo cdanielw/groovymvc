@@ -1,5 +1,7 @@
 package groovymvc
 
+import groovy.transform.stc.ClosureParams
+import groovy.transform.stc.FirstParam
 import groovymvc.bind.BeanProperty
 import groovymvc.bind.Binder
 import groovymvc.bind.DefaultBinder
@@ -692,7 +694,11 @@ class Controller {
      * @param callback the callback to call. It's delegate will be set to a {@link RequestContext} instance
      * before called.
      */
-    void error(Class<? extends Exception> type, @DelegatesTo(RequestContext) Closure callback) {
+    public <T extends Exception> void error(
+            Class<T> type,
+            @ClosureParams(FirstParam.FirstGenericType.class)
+            @DelegatesTo(RequestContext)
+                    Closure callback) {
         registerErrorHandler([type], callback)
     }
 
@@ -705,10 +711,15 @@ class Controller {
      * @param callback the callback to call. It's delegate will be set to a {@link RequestContext} instance
      * before called.
      */
-    void error(Class<? extends Exception> rootType, Class<? extends Exception> causeType,
-               @DelegatesTo(RequestContext) Closure callback) {
+    public <T extends Exception> void error(
+            Class<? extends Exception> rootType,
+            Class<T> causeType,
+            @ClosureParams(FirstParam.FirstGenericType.class)
+            @DelegatesTo(RequestContext)
+                    Closure callback) {
         registerErrorHandler([rootType, causeType], callback)
     }
+
 
     private void registerErrorHandler(ArrayList<Class<? extends Exception>> key, Closure callback) {
         if (!exceptionHandlers.containsKey(key))
