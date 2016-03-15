@@ -21,6 +21,19 @@ class SecurityIntegrationTest extends AbstractIntegrationTest {
         !accessed
     }
 
+    def 'Can restrict access when registering route without leading slash'() {
+        c.get('{paramOne}/{paramTwo}', ['some role']) {
+            accessed = true
+        }
+
+        principalProvider.lookup(_) >> new TestUser('some username', 'another role')
+
+        when:
+        client.get(path: 'foo/bar')
+        then:
+        !accessed
+    }
+
     def 'Can restrict access directly on controller'() {
         c.restrict('/**', ['some role'])
 

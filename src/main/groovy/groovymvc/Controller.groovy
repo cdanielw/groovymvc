@@ -321,7 +321,7 @@ class Controller {
         if (roles != null) {
             if (restrictions == null)
                 throw new IllegalStateException('PathRestrictions was not specified when constructing Controller')
-            restrictions.restrict(method, pathPattern, roles)
+            restrictions.restrict(method, normalizedPathPattern, roles)
         }
         routes.register(method, normalizedPathPattern, callback)
     }
