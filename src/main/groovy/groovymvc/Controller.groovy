@@ -2,6 +2,7 @@ package groovymvc
 
 import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.FirstParam
+import groovy.transform.stc.SecondParam
 import groovymvc.bind.BeanProperty
 import groovymvc.bind.Binder
 import groovymvc.bind.DefaultBinder
@@ -714,7 +715,7 @@ class Controller {
     public <T extends Exception> void error(
             Class<? extends Exception> rootType,
             Class<T> causeType,
-            @ClosureParams(FirstParam.FirstGenericType.class)
+            @ClosureParams(SecondParam.FirstGenericType.class)
             @DelegatesTo(RequestContext)
                     Closure callback) {
         registerErrorHandler([rootType, causeType], callback)
