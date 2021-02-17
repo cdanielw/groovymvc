@@ -1,4 +1,4 @@
+.*
 target/
 release.properties
-.idea
 groovy-mvc.iml
