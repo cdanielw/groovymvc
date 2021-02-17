@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.fao.foris.groovy.mvc</groupId>
+    <groupId>org.openforis.groovy.mvc</groupId>
     <artifactId>groovy-mvc</artifactId>
     <version>0.6.3-SNAPSHOT</version>
     <name>Groovy MVC</name>
@@ -280,22 +280,23 @@
         </plugins>
     </reporting>
 
-
     <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <id>thirdparty</id>
-            <url>http://openforis.org/nexus/content/repositories/thirdparty/</url>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
     </distributionManagement>
 
     <repositories>
         <repository>
-            <id>Nexus</id>
-            <name>Foris Nexus</name>
-            <url>http://ldvfo01:9000/nexus/content/groups/public</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
+            <id>central</id>
+            <name>Central Repository</name>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <layout>default</layout>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
@@ -303,7 +304,9 @@
     </repositories>
 
     <scm>
-        <connection>scm:git:https://github.com/cdanielw/groovymvc.git</connection>
+        <url>https://github.com/openforis/groovymvc</url>
+        <connection>scm:git:git@github.com:openforis/groovymvc.git</connection>
+        <developerConnection>scm:git:git@github.com:openforis/groovymvc.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
