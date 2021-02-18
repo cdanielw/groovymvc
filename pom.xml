@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.openforis.groovy.mvc</groupId>
     <artifactId>groovy-mvc</artifactId>
-    <version>0.6.5-SNAPSHOT</version>
+    <version>0.6.4-SNAPSHOT</version>
     <name>Groovy MVC</name>
     <packaging>jar</packaging>
 
