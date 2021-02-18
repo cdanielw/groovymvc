@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.openforis.groovy.mvc</groupId>
     <artifactId>groovy-mvc</artifactId>
-    <version>0.6.4</version>
+    <version>0.6.5-SNAPSHOT</version>
     <name>Groovy MVC</name>
     <packaging>jar</packaging>
 
@@ -333,7 +333,7 @@
         <url>https://github.com/openforis/groovymvc</url>
         <connection>scm:git:git@github.com:openforis/groovymvc.git</connection>
         <developerConnection>scm:git:git@github.com:openforis/groovymvc.git</developerConnection>
-        <tag>groovy-mvc-0.6.4</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
