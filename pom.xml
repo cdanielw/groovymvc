@@ -4,6 +4,7 @@
     <artifactId>groovy-mvc</artifactId>
     <version>0.6.4-SNAPSHOT</version>
     <name>Groovy MVC</name>
+    <description>Groovy MVC is a synchronous, action oriented MVC framework</description>
     <packaging>jar</packaging>
 
     <properties>
